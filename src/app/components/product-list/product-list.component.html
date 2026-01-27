@@ -12,6 +12,7 @@
           <th>ID</th>
           <th>Name</th>
           <th>Price</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -20,6 +21,9 @@
             <td>{{ product.id }}</td>
             <td>{{ product.name }}</td>
             <td>${{ product.price }}</td>
+            <td>
+              <button class="remove-btn" (click)="removeProduct(product.id)">Remove</button>
+            </td>
           </tr>
         }
       </tbody>

@@ -28,4 +28,8 @@ export class ProductListComponent {
     
     this.productService.addProduct(newProduct);
   }
+
+  removeProduct(id: number): void {
+    this.productService.removeProduct(id);
+  }
 }

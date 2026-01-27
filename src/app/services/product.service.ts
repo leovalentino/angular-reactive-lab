@@ -6,7 +6,12 @@ import { Product } from '../models/product.model';
 })
 export class ProductService {
   // Private writable signal for products
-  private productsSignal = signal<Product[]>([]);
+  private productsSignal = signal<Product[]>([
+    { id: 1, name: 'Laptop', price: 999 },
+    { id: 2, name: 'Mouse', price: 25 },
+    { id: 3, name: 'Keyboard', price: 75 },
+    { id: 4, name: 'Monitor', price: 300 }
+  ]);
   
   // Public readonly signal for components
   public readonly products = this.productsSignal.asReadonly();
@@ -20,12 +25,20 @@ export class ProductService {
     // Effect to log when product list changes
     effect(() => {
       const count = this.products().length;
-      console.log(`Product list changed. New count: ${count}`);
+      const total = this.totalValue();
+      console.log(`Product list changed. New count: ${count}, Total value: $${total}`);
     });
   }
 
   // Method to add a new product
   addProduct(product: Product): void {
     this.productsSignal.update(currentProducts => [...currentProducts, product]);
+  }
+
+  // Method to remove a product by id
+  removeProduct(id: number): void {
+    this.productsSignal.update(currentProducts => 
+      currentProducts.filter(product => product.id !== id)
+    );
   }
 }
