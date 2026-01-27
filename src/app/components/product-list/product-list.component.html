@@ -1,0 +1,32 @@
+<div class="product-list">
+  <h2>Product List</h2>
+  
+  <button (click)="addRandomProduct()">Add Random Product</button>
+  
+  @if (products().length === 0) {
+    <p>No products available. Add some products!</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of products(); track product.id) {
+          <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>${{ product.price }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+  
+  <div class="total">
+    <h3>Total Value: ${{ totalValue() }}</h3>
+  </div>
+</div>

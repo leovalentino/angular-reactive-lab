@@ -1,0 +1,35 @@
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+header h1 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+header p {
+  color: #666;
+  font-size: 18px;
+}
+
+main {
+  margin-bottom: 40px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  border-top: 1px solid #eee;
+}
