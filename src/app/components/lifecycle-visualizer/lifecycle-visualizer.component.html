@@ -1,0 +1,19 @@
+<div class="lifecycle-visualizer">
+  <h2>Lifecycle Visualizer</h2>
+  
+  <div class="controls">
+    <button (click)="incrementCounter()">Increment Counter ({{ counter() }})</button>
+    <button (click)="updateTrigger()">Update Trigger Signal ({{ triggerSignal() }})</button>
+  </div>
+  
+  <div class="info">
+    <h3>Current State:</h3>
+    <p>Counter: {{ counter() }}</p>
+    <p>Trigger Signal: {{ triggerSignal() }}</p>
+  </div>
+  
+  <div class="logs">
+    <h3>Check the browser console for lifecycle logs!</h3>
+    <p>Each lifecycle hook logs with a different color for better visibility.</p>
+  </div>
+</div>
