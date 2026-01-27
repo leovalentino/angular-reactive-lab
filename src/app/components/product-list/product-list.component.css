@@ -7,6 +7,10 @@ h2 {
   color: #333;
 }
 
+.button-group {
+  margin-bottom: 20px;
+}
+
 button {
   background-color: #4CAF50;
   color: white;
@@ -15,12 +19,17 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  margin-bottom: 20px;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 
-button:hover {
+button:hover:not(:disabled) {
   background-color: #45a049;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
 .remove-btn {
@@ -31,6 +40,13 @@ button:hover {
 
 .remove-btn:hover {
   background-color: #d32f2f;
+}
+
+.loading {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
 }
 
 table {

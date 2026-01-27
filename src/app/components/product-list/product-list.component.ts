@@ -15,6 +15,7 @@ export class ProductListComponent {
   // Expose the signals from the service
   products = this.productService.products;
   totalValue = this.productService.totalValue;
+  loading = this.productService.loading;
 
   addRandomProduct(): void {
     const randomId = Math.floor(Math.random() * 1000);
@@ -31,5 +32,9 @@ export class ProductListComponent {
 
   removeProduct(id: number): void {
     this.productService.removeProduct(id);
+  }
+
+  refreshList(): void {
+    this.productService.refresh();
   }
 }
