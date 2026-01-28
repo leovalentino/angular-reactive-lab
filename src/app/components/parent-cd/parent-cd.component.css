@@ -1,0 +1,88 @@
+.parent-container {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+}
+
+.parent-container h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.controls {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.control-group {
+  flex: 1;
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.control-group h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.control-group p {
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.zone-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.zone-btn:hover {
+  background-color: #c0392b;
+}
+
+.signal-btn {
+  background-color: #27ae60;
+  color: white;
+}
+
+.signal-btn:hover {
+  background-color: #219653;
+}
+
+.counter {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.children {
+  display: flex;
+  gap: 2rem;
+}
+
+.child-container {
+  flex: 1;
+  border: 2px dashed #bdc3c7;
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+}

@@ -2,11 +2,12 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { LifecycleVisualizerComponent } from './components/lifecycle-visualizer/lifecycle-visualizer.component';
+import { ChangeDetectionLabComponent } from './components/change-detection-lab/change-detection-lab.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ProductListComponent, LifecycleVisualizerComponent],
+  imports: [RouterOutlet, ProductListComponent, LifecycleVisualizerComponent, ChangeDetectionLabComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

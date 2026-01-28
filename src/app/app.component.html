@@ -3,12 +3,13 @@
     <h1>{{ title }}</h1>
     <p>Clean Architecture with Angular 18+ Signals</p>
   </header>
-  
+
   <main>
+    <app-change-detection-lab></app-change-detection-lab>
     <app-product-list></app-product-list>
-    <app-lifecycle-visualizer [triggerSignal]="triggerSignal"></app-lifecycle-visualizer>
+   <!-- <app-lifecycle-visualizer [triggerSignal]="triggerSignal"></app-lifecycle-visualizer>-->
   </main>
-  
+
   <footer>
     <p>Product Management System &copy; 2026</p>
   </footer>

@@ -1,0 +1,32 @@
+<div class="parent-container">
+  <h2>Parent Component</h2>
+
+  <div class="controls">
+    <div class="control-group">
+      <h3>Zone.js Trigger</h3>
+      <p>This button fires a regular click event (handled by Zone.js).</p>
+      <button (click)="onEmptyClick()" class="btn zone-btn">
+        Empty Click (Zone.js)
+      </button>
+      <p class="counter">Click count: {{ clickCount }}</p>
+    </div>
+
+    <div class="control-group">
+      <h3>Signals Trigger</h3>
+      <p>This button increments a signal value.</p>
+      <button (click)="incrementSignal()" class="btn signal-btn">
+        Increment Signal
+      </button>
+      <p class="counter">Signal value: {{ signalInput() }}</p>
+    </div>
+  </div>
+
+  <div class="children">
+    <div class="child-container">
+      <app-child-zonejs [zoneValue]="zoneInput"></app-child-zonejs>
+    </div>
+    <div class="child-container">
+      <app-child-signals [signalValue]="signalInput()"></app-child-signals>
+    </div>
+  </div>
+</div>

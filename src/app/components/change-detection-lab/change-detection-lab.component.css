@@ -1,0 +1,59 @@
+.lab-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.lab-container header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.lab-container h1 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.lab-container p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+.explanation {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 4px solid #3498db;
+}
+
+.explanation h2 {
+  color: #2c3e50;
+  margin-top: 0;
+}
+
+.explanation ul {
+  padding-left: 1.5rem;
+}
+
+.explanation li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.explanation code {
+  background-color: #ecf0f1;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+}
+
+footer {
+  margin-top: 2rem;
+  text-align: center;
+  color: #95a5a6;
+  font-style: italic;
+}

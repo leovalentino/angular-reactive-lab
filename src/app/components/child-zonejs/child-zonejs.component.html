@@ -1,0 +1,22 @@
+<div class="child-zonejs">
+  <h3>Zone.js-based Child</h3>
+  <p>Uses traditional @Input() binding.</p>
+  
+  <div class="info">
+    <p><strong>Input value:</strong> {{ zoneValue }}</p>
+    <p><strong>Render status:</strong> {{ checkRender() }}</p>
+  </div>
+  
+  <div class="flash-area">
+    <p>This area flashes when change detection runs.</p>
+  </div>
+  
+  <div class="notes">
+    <h4>Behavior:</h4>
+    <ul>
+      <li>Will be checked on <em>any</em> parent event (even empty click).</li>
+      <li>Change detection runs even if input hasn't changed.</li>
+      <li>Watch the console and flash effect.</li>
+    </ul>
+  </div>
+</div>

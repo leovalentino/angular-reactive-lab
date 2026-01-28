@@ -1,0 +1,22 @@
+<div class="lab-container">
+  <header>
+    <h1>{{ title }}</h1>
+    <p>Visualizing Angular's Change Detection with Zone.js vs Signals</p>
+  </header>
+
+  <div class="explanation">
+    <h2>How it works:</h2>
+    <ul>
+      <li><strong>Zone.js-based component</strong> (left): Uses traditional @Input() binding. Any event in the parent triggers change detection in this child, even if its input hasn't changed.</li>
+      <li><strong>Signals-based component</strong> (right): Uses the new input() signal. Only triggers change detection when its specific signal input actually changes.</li>
+      <li>Each component has a <code>checkRender()</code> method that logs to console and flashes the background when called.</li>
+    </ul>
+    <p>Click the buttons below and watch the console and visual feedback!</p>
+  </div>
+
+  <app-parent-cd></app-parent-cd>
+
+  <footer>
+    <p>Observe the console for detailed logs. The flash effect shows when each component's template is checked.</p>
+  </footer>
+</div>

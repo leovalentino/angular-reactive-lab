@@ -1,0 +1,22 @@
+<div class="child-signals">
+  <h3>Signals-based Child</h3>
+  <p>Uses the new input() signal.</p>
+  
+  <div class="info">
+    <p><strong>Input value:</strong> {{ signalValue() }}</p>
+    <p><strong>Render status:</strong> {{ checkRender() }}</p>
+  </div>
+  
+  <div class="flash-area">
+    <p>This area flashes when change detection runs.</p>
+  </div>
+  
+  <div class="notes">
+    <h4>Behavior:</h4>
+    <ul>
+      <li>Only checked when its specific signal input changes.</li>
+      <li>Parent's empty click does NOT trigger change detection here.</li>
+      <li>Watch the console and flash effect.</li>
+    </ul>
+  </div>
+</div>
