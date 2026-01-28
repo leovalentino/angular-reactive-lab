@@ -4,6 +4,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { LifecycleVisualizerComponent } from './components/lifecycle-visualizer/lifecycle-visualizer.component';
 import { ChangeDetectionLabComponent } from './components/change-detection-lab/change-detection-lab.component';
 import { ObservableLabComponent } from './components/observable-lab/observable-lab.component';
+import { ComparisonLabComponent } from './components/comparison-lab/comparison-lab.component';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ import { ObservableLabComponent } from './components/observable-lab/observable-l
     ProductListComponent, 
     LifecycleVisualizerComponent, 
     ChangeDetectionLabComponent,
-    ObservableLabComponent
+    ObservableLabComponent,
+    ComparisonLabComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

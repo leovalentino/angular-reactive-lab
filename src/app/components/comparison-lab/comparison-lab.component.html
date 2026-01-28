@@ -1,0 +1,169 @@
+<div class="comparison-lab">
+  <header>
+    <h1>Promise vs Observable Comparison Lab</h1>
+    <p>Visualizing fundamental differences between Promises and Observables</p>
+  </header>
+
+  <div class="explanation">
+    <h2>Key Differences:</h2>
+    <ul>
+      <li><strong>Eager vs Lazy:</strong> Promises execute immediately upon creation, Observables only when subscribed.</li>
+      <li><strong>Cancellable:</strong> Observables can be cancelled via unsubscribe(), Promises cannot be cancelled natively.</li>
+      <li><strong>Single vs Multiple:</strong> Promises emit a single value, Observables can emit multiple values over time.</li>
+      <li><strong>Operators:</strong> Observables have powerful operators (map, filter, etc.) for transformation.</li>
+    </ul>
+  </div>
+
+  <div class="main-comparison">
+    <!-- Promise Lab -->
+    <section class="lab-section promise-lab">
+      <h3>The Promise Lab</h3>
+      <p>Demonstrates eager execution and lack of cancellation.</p>
+      
+      <div class="status">
+        <h4>Status: 
+          <span [class]="'status-' + promiseStatus()">
+            {{ promiseStatus().toUpperCase() }}
+          </span>
+        </h4>
+      </div>
+      
+      <div class="controls">
+        <button (click)="createPromise()" class="btn create-btn">
+          Create Promise
+        </button>
+        <button (click)="tryCancelPromise()" class="btn cancel-btn">
+          Try to Cancel
+        </button>
+      </div>
+      
+      <div class="logs">
+        <h4>Promise Logs:</h4>
+        <div class="log-entries">
+          @for (log of promiseLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Observable Lab -->
+    <section class="lab-section observable-lab">
+      <h3>The Observable Lab</h3>
+      <p>Demonstrates lazy execution and cancellation.</p>
+      
+      <div class="status">
+        <h4>Status: 
+          <span [class]="'status-' + observableStatus()">
+            {{ observableStatus().toUpperCase() }}
+          </span>
+        </h4>
+      </div>
+      
+      <div class="controls">
+        <button (click)="createObservable()" class="btn create-btn">
+          Create Observable
+        </button>
+        <button (click)="subscribeObservable()" class="btn subscribe-btn">
+          Subscribe
+        </button>
+        <button (click)="cancelObservable()" class="btn cancel-btn">
+          Cancel (Unsubscribe)
+        </button>
+      </div>
+      
+      <div class="values">
+        <h4>Emitted Values:</h4>
+        <div class="value-list">
+          @for (value of observableValues(); track $index) {
+            <span class="value-badge">{{ value }}</span>
+          }
+        </div>
+      </div>
+      
+      <div class="logs">
+        <h4>Observable Logs:</h4>
+        <div class="log-entries">
+          @for (log of observableLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="advanced-scenarios">
+    <!-- Single vs Multiple -->
+    <section class="scenario-section">
+      <h3>Single vs Multiple Values</h3>
+      
+      <div class="scenario-columns">
+        <div class="scenario-column">
+          <h4>Promise (Single)</h4>
+          <button (click)="demonstrateSingleValue()" class="btn scenario-btn">
+            Show Single Value
+          </button>
+          <div class="scenario-logs">
+            @for (log of singleValueLogs(); track $index) {
+              <div class="log-entry">{{ log }}</div>
+            }
+          </div>
+        </div>
+        
+        <div class="scenario-column">
+          <h4>Observable (Multiple)</h4>
+          <button (click)="demonstrateMultipleValues()" class="btn scenario-btn">
+            Show Multiple Values
+          </button>
+          <div class="value-list">
+            @for (value of multipleValues(); track $index) {
+              <span class="value-badge">{{ value }}</span>
+            }
+          </div>
+          <div class="scenario-logs">
+            @for (log of multipleValueLogs(); track $index) {
+              <div class="log-entry">{{ log }}</div>
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Operators -->
+    <section class="scenario-section">
+      <h3>Operators (Observable Only)</h3>
+      <p>Transform data with map and filter operators.</p>
+      
+      <div class="controls">
+        <button (click)="demonstrateOperators()" class="btn operator-btn">
+          Start Operator Demo
+        </button>
+        <button (click)="cancelOperatorDemo()" class="btn cancel-btn">
+          Cancel
+        </button>
+      </div>
+      
+      <div class="values">
+        <h4>Transformed Values (even numbers multiplied by 2, then filtered by divisible by 3):</h4>
+        <div class="value-list">
+          @for (value of operatorValues(); track $index) {
+            <span class="value-badge">{{ value }}</span>
+          }
+        </div>
+      </div>
+      
+      <div class="logs">
+        <h4>Operator Logs:</h4>
+        <div class="log-entries">
+          @for (log of operatorLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>Observables provide more control over asynchronous operations with lazy execution, cancellation, and powerful operators.</p>
+  </footer>
+</div>
