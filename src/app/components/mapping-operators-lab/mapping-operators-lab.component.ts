@@ -16,7 +16,11 @@ import {
   take,
   tap,
   delay,
-  BehaviorSubject
+  BehaviorSubject,
+  concatMap,
+  switchMap,
+  mergeMap,
+  exhaustMap
 } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -50,10 +54,30 @@ export class MappingOperatorsLabComponent {
   combineAllValues = signal<string[]>([]);
   private combineAllOuter = new Subject<Observable<number>>();
 
+  // Mapping Battle
+  mappingBattleLogs = signal<string[]>([]);
+  mappingBattleActiveRequests = signal(0);
+  mappingBattleQueueLength = signal(0);
+  mappingBattleStatus = signal<Record<string, string>>({
+    concatMap: 'Idle',
+    switchMap: 'Idle',
+    mergeMap: 'Idle',
+    exhaustMap: 'Idle'
+  });
+  mappingBattleProgress = signal<Record<string, number>>({
+    concatMap: 0,
+    switchMap: 0,
+    mergeMap: 0,
+    exhaustMap: 0
+  });
+  private triggerSubject = new Subject<number>();
+  private requestCounter = 0;
+
   constructor() {
     this.setupAllOperators();
     this.setupJoinStartOperators();
     this.setupCombineLatestAll();
+    this.setupMappingBattle();
   }
 
   // Setup Higher-Order All Operators
@@ -86,6 +110,153 @@ export class MappingOperatorsLabComponent {
       complete: () => {
         this.addCombineAllLog('combineLatestAll completed');
       }
+    });
+  }
+
+  // Setup Mapping Battle
+  private setupMappingBattle(): void {
+    // concatMap stream
+    this.triggerSubject.pipe(
+      concatMap(requestId => {
+        this.updateMappingBattleStatus('concatMap', `Processing ${requestId}`);
+        this.mappingBattleQueueLength.update(q => q - 1);
+        return this.simulateApiCall(requestId, 'CONCAT').pipe(
+          tap(() => {
+            this.updateMappingBattleProgress('concatMap', requestId);
+            this.updateMappingBattleStatus('concatMap', `Finished ${requestId}`);
+          })
+        );
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: result => {
+        this.addMappingBattleLog(result);
+      }
+    });
+
+    // switchMap stream
+    this.triggerSubject.pipe(
+      switchMap(requestId => {
+        this.updateMappingBattleStatus('switchMap', `Processing ${requestId}`);
+        return this.simulateApiCall(requestId, 'SWITCH').pipe(
+          tap(() => {
+            this.updateMappingBattleProgress('switchMap', requestId);
+            this.updateMappingBattleStatus('switchMap', `Finished ${requestId}`);
+          })
+        );
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: result => {
+        this.addMappingBattleLog(result);
+      }
+    });
+
+    // mergeMap stream
+    this.triggerSubject.pipe(
+      mergeMap(requestId => {
+        this.updateMappingBattleStatus('mergeMap', `Processing ${requestId}`);
+        this.mappingBattleActiveRequests.update(a => a + 1);
+        return this.simulateApiCall(requestId, 'MERGE').pipe(
+          tap(() => {
+            this.updateMappingBattleProgress('mergeMap', requestId);
+            this.updateMappingBattleStatus('mergeMap', `Finished ${requestId}`);
+            this.mappingBattleActiveRequests.update(a => a - 1);
+          })
+        );
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: result => {
+        this.addMappingBattleLog(result);
+      }
+    });
+
+    // exhaustMap stream
+    this.triggerSubject.pipe(
+      exhaustMap(requestId => {
+        this.updateMappingBattleStatus('exhaustMap', `Processing ${requestId}`);
+        return this.simulateApiCall(requestId, 'EXHAUST').pipe(
+          tap(() => {
+            this.updateMappingBattleProgress('exhaustMap', requestId);
+            this.updateMappingBattleStatus('exhaustMap', `Finished ${requestId}`);
+          })
+        );
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: result => {
+        this.addMappingBattleLog(result);
+      }
+    });
+  }
+
+  private simulateApiCall(requestId: number, operator: string): Observable<string> {
+    return new Observable<string>(observer => {
+      const duration = 2000; // 2 seconds
+      this.addMappingBattleLog(`[${operator}] - Started ${requestId}/5 (${duration}ms)`);
+      
+      const timeoutId = setTimeout(() => {
+        observer.next(`[${operator}] - Finished ${requestId}/5`);
+        observer.complete();
+      }, duration);
+
+      return () => {
+        clearTimeout(timeoutId);
+        this.addMappingBattleLog(`[${operator}] - Cancelled ${requestId}/5`);
+      };
+    });
+  }
+
+  // Mapping Battle Methods
+  triggerMappingBattle(): void {
+    this.clearMappingBattle();
+    this.requestCounter = 0;
+    this.mappingBattleQueueLength.set(5);
+    
+    // Trigger 5 requests rapidly
+    for (let i = 1; i <= 5; i++) {
+      setTimeout(() => {
+        this.requestCounter++;
+        this.triggerSubject.next(this.requestCounter);
+        this.addMappingBattleLog(`Triggered request ${this.requestCounter}/5`);
+      }, i * 100); // 100ms apart to simulate rapid clicks
+    }
+  }
+
+  private updateMappingBattleStatus(operator: string, status: string): void {
+    this.mappingBattleStatus.update(current => ({
+      ...current,
+      [operator]: status
+    }));
+  }
+
+  private updateMappingBattleProgress(operator: string, requestId: number): void {
+    this.mappingBattleProgress.update(current => ({
+      ...current,
+      [operator]: (requestId / 5) * 100
+    }));
+  }
+
+  private addMappingBattleLog(message: string): void {
+    this.mappingBattleLogs.update(logs => [...logs, `${new Date().toLocaleTimeString()}: ${message}`]);
+  }
+
+  clearMappingBattle(): void {
+    this.mappingBattleLogs.set([]);
+    this.mappingBattleActiveRequests.set(0);
+    this.mappingBattleQueueLength.set(0);
+    this.mappingBattleStatus.set({
+      concatMap: 'Idle',
+      switchMap: 'Idle',
+      mergeMap: 'Idle',
+      exhaustMap: 'Idle'
+    });
+    this.mappingBattleProgress.set({
+      concatMap: 0,
+      switchMap: 0,
+      mergeMap: 0,
+      exhaustMap: 0
     });
   }
 

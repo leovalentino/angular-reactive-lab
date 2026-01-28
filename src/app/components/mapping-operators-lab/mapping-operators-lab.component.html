@@ -16,6 +16,68 @@
 
   <div class="sections-container">
     
+    <!-- Mapping Battle -->
+    <section class="operators-section">
+      <h3>Mapping Battle: concatMap vs switchMap vs mergeMap vs exhaustMap</h3>
+      <p>Trigger 5 rapid requests to see how each operator handles them.</p>
+      
+      <div class="controls">
+        <button (click)="triggerMappingBattle()" class="btn battle-btn">Trigger All (5 rapid requests)</button>
+        <button (click)="clearMappingBattle()" class="btn clear-btn">Clear</button>
+      </div>
+      
+      <div class="status">
+        <div class="battle-metrics">
+          <div class="metric">
+            <strong>Active Requests (mergeMap):</strong> {{ mappingBattleActiveRequests() }}
+          </div>
+          <div class="metric">
+            <strong>Queue Length (concatMap):</strong> {{ mappingBattleQueueLength() }}
+          </div>
+        </div>
+      </div>
+      
+      <div class="battle-operators">
+        <div class="operator-card">
+          <h4>concatMap</h4>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="mappingBattleProgress()['concatMap']"></div>
+          </div>
+          <div class="operator-status">{{ mappingBattleStatus()['concatMap'] }}</div>
+        </div>
+        <div class="operator-card">
+          <h4>switchMap</h4>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="mappingBattleProgress()['switchMap']"></div>
+          </div>
+          <div class="operator-status">{{ mappingBattleStatus()['switchMap'] }}</div>
+        </div>
+        <div class="operator-card">
+          <h4>mergeMap</h4>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="mappingBattleProgress()['mergeMap']"></div>
+          </div>
+          <div class="operator-status">{{ mappingBattleStatus()['mergeMap'] }}</div>
+        </div>
+        <div class="operator-card">
+          <h4>exhaustMap</h4>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="mappingBattleProgress()['exhaustMap']"></div>
+          </div>
+          <div class="operator-status">{{ mappingBattleStatus()['exhaustMap'] }}</div>
+        </div>
+      </div>
+      
+      <div class="logs">
+        <h4>Battle Logs:</h4>
+        <div class="log-entries">
+          @for (log of mappingBattleLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+      </div>
+    </section>
+
     <!-- Higher-Order All Operators -->
     <section class="operators-section">
       <h3>Higher-Order All Operators</h3>
