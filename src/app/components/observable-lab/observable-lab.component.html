@@ -1,0 +1,165 @@
+<div class="observable-lab">
+  <header>
+    <h1>Observable Lab</h1>
+    <p>Mastering Async Data Streams and RxJS Operators</p>
+  </header>
+
+  <div class="explanation">
+    <h2>Key Concepts:</h2>
+    <ul>
+      <li><strong>Lazy Execution:</strong> Observables don't run until you subscribe.</li>
+      <li><strong>Cancellation:</strong> Unsubscribe to prevent memory leaks.</li>
+      <li><strong>Operators:</strong> Transform, filter, combine streams declaratively.</li>
+      <li><strong>Modern Angular:</strong> Use <code>takeUntilDestroyed()</code> for automatic cleanup.</li>
+    </ul>
+  </div>
+
+  <div class="streams-container">
+    
+    <!-- Search Stream -->
+    <section class="stream-card">
+      <h3>Search Stream</h3>
+      <p>Debounced input with switchMap to simulate API search.</p>
+      
+      <div class="controls">
+        <input 
+          type="text" 
+          [value]="searchTerm()"
+          (input)="onSearchInput($event)"
+          placeholder="Type to search..."
+        />
+        <button (click)="clearSearch()" class="btn clear-btn">Clear</button>
+      </div>
+      
+      <div class="results">
+        <h4>Results:</h4>
+        <ul>
+          @for (result of searchResults(); track $index) {
+            <li>{{ result }}</li>
+          } @empty {
+            <li>No results yet</li>
+          }
+        </ul>
+      </div>
+      
+      <div class="logs">
+        <h4>Logs:</h4>
+        <div class="log-entries">
+          @for (log of searchLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+        <button (click)="searchLogs.set([])" class="btn small-btn">Clear Logs</button>
+      </div>
+    </section>
+
+    <!-- Interval Stream -->
+    <section class="stream-card">
+      <h3>Interval Stream</h3>
+      <p>Counts 1-10 with interval(1000), auto-completes via take(10).</p>
+      
+      <div class="controls">
+        <button 
+          (click)="startInterval()" 
+          [disabled]="intervalActive()"
+          class="btn start-btn"
+        >
+          Start Interval
+        </button>
+        <button 
+          (click)="cancelInterval()" 
+          [disabled]="!intervalActive()"
+          class="btn cancel-btn"
+        >
+          Cancel
+        </button>
+      </div>
+      
+      <div class="results">
+        <h4>Counter: {{ intervalCounter() }}</h4>
+        <p>Status: {{ intervalActive() ? 'Running' : 'Stopped' }}</p>
+      </div>
+      
+      <div class="logs">
+        <h4>Logs:</h4>
+        <div class="log-entries">
+          @for (log of intervalLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+        <button (click)="clearIntervalLogs()" class="btn small-btn">Clear Logs</button>
+      </div>
+    </section>
+
+    <!-- Combined Stream -->
+    <section class="stream-card">
+      <h3>Combined Stream</h3>
+      <p>combineLatest of user preference signal + mock API observable.</p>
+      
+      <div class="controls">
+        <div class="pref-buttons">
+          <button (click)="changePreference('light')" class="btn pref-btn">Light</button>
+          <button (click)="changePreference('dark')" class="btn pref-btn">Dark</button>
+          <button (click)="changePreference('auto')" class="btn pref-btn">Auto</button>
+        </div>
+      </div>
+      
+      <div class="results">
+        <h4>Combined Result:</h4>
+        <pre>{{ combinedResult() | json }}</pre>
+      </div>
+      
+      <div class="logs">
+        <h4>Logs:</h4>
+        <div class="log-entries">
+          @for (log of combinedLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+        <button (click)="clearCombinedLogs()" class="btn small-btn">Clear Logs</button>
+      </div>
+    </section>
+
+    <!-- Manual Subscription -->
+    <section class="stream-card">
+      <h3>Manual Subscription</h3>
+      <p>Demonstrates manual .subscribe() with takeUntil cleanup.</p>
+      
+      <div class="controls">
+        <button 
+          (click)="startManualSubscription()" 
+          [disabled]="manualSubscriptionActive()"
+          class="btn start-btn"
+        >
+          Start Manual
+        </button>
+        <button 
+          (click)="cancelManualSubscription()" 
+          [disabled]="!manualSubscriptionActive()"
+          class="btn cancel-btn"
+        >
+          Cancel with takeUntil
+        </button>
+      </div>
+      
+      <div class="results">
+        <p>Active: {{ manualSubscriptionActive() ? 'Yes' : 'No' }}</p>
+      </div>
+      
+      <div class="logs">
+        <h4>Logs:</h4>
+        <div class="log-entries">
+          @for (log of manualSubscriptionLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+        <button (click)="clearManualLogs()" class="btn small-btn">Clear Logs</button>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>Compare these observable streams with Signals: Signals are synchronous, always have a value, and automatically manage dependencies.</p>
+  </footer>
+</div>
