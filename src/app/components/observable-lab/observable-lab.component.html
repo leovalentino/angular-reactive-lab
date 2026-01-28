@@ -19,7 +19,7 @@
     <!-- Search Stream -->
     <section class="stream-card">
       <h3>Search Stream</h3>
-      <p>Debounced input with switchMap to simulate API search.</p>
+      <p>Debounced input with switchMap to simulate API search. Uses AbortController for real network cancellation.</p>
       
       <div class="controls">
         <input 
@@ -33,6 +33,11 @@
       
       <div class="results">
         <h4>Results:</h4>
+        @if (isCancelling()) {
+          <div class="cancelling-indicator">
+            ⚡ Is Cancelling previous request...
+          </div>
+        }
         <ul>
           @for (result of searchResults(); track $index) {
             <li>{{ result }}</li>

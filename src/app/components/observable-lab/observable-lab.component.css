@@ -172,6 +172,23 @@ input {
   margin-top: 0;
 }
 
+.cancelling-indicator {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #ffeaa7;
+  animation: pulse 0.5s infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 0.8; }
+  to { opacity: 1; }
+}
+
 .logs {
   margin-top: auto;
 }

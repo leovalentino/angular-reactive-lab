@@ -33,6 +33,7 @@ export class ObservableLabComponent {
   searchTerm = signal('');
   searchResults = signal<string[]>([]);
   searchLogs = signal<string[]>([]);
+  isCancelling = signal(false);
   private searchSubject = new Subject<string>();
 
   // Interval Stream
@@ -53,7 +54,7 @@ export class ObservableLabComponent {
   private manualSubject = new Subject<void>();
 
   constructor() {
-    // Setup search stream
+    // Setup search stream with AbortController
     this.searchSubject.pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -64,17 +65,49 @@ export class ObservableLabComponent {
         if (!term.trim()) {
           return of([]);
         }
-        // Simulate API call
+        // Create a new AbortController for each request
+        const controller = new AbortController();
+        const signal = controller.signal;
+        
+        // Show cancelling indicator briefly
+        this.isCancelling.set(true);
+        setTimeout(() => this.isCancelling.set(false), 300);
+        
+        // Return an observable that uses fetch with abort signal
         return new Observable<string[]>(observer => {
-          setTimeout(() => {
-            const results = [
-              `${term} result 1`,
-              `${term} result 2`,
-              `${term} result 3`
-            ];
-            observer.next(results);
-            observer.complete();
-          }, 500);
+          // Simulate a real API call with fetch
+          fetch(`https://jsonplaceholder.typicode.com/posts?q=${term}`, { signal })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then(posts => {
+              // Extract titles from posts
+              const results = posts.slice(0, 3).map((post: any) => 
+                `Post ${post.id}: ${post.title.substring(0, 30)}...`
+              );
+              observer.next(results);
+              observer.complete();
+            })
+            .catch(error => {
+              if (error.name === 'AbortError') {
+                this.addSearchLog('Network request aborted by browser');
+                // Don't emit error, just complete without emitting next
+                observer.complete();
+              } else {
+                observer.error(error);
+              }
+            });
+          
+          // Return cleanup function that aborts the request when unsubscribed
+          return () => {
+            if (!signal.aborted) {
+              controller.abort();
+              this.addSearchLog('Previous request cancelled via switchMap');
+            }
+          };
         });
       }),
       takeUntilDestroyed(this.destroyRef)
@@ -93,13 +126,12 @@ export class ObservableLabComponent {
 
     // Setup combined stream
     combineLatest([
-      toObservable(this.userPreference), // Convertendo o Signal para Observable
+      toObservable(this.userPreference),
       this.fetchMockApi()
     ]).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: ([pref, data]) => {
-        // Agora o pref será emitido toda vez que o Signal 'userPreference' mudar
         this.combinedResult.set({ preference: pref, apiData: data });
       }
     });
