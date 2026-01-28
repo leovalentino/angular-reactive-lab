@@ -1,0 +1,189 @@
+<div class="advanced-promise-lab">
+  <header>
+    <h1>Advanced Promise Lab</h1>
+    <p>Senior Patterns for Promise Orchestration and Error Handling</p>
+  </header>
+
+  <div class="explanation">
+    <h2>Key Concepts:</h2>
+    <ul>
+      <li><strong>Promise.all:</strong> Waits for all promises to fulfill; rejects immediately if any promise rejects.</li>
+      <li><strong>Promise.allSettled:</strong> Waits for all promises to settle (fulfill or reject).</li>
+      <li><strong>Promise.race:</strong> Returns the first promise that settles (fulfill or reject).</li>
+      <li><strong>Retry Patterns:</strong> Implementing exponential backoff or fixed retry logic.</li>
+      <li><strong>Event Loop:</strong> Understanding microtasks vs macrotasks execution order.</li>
+    </ul>
+  </div>
+
+  <div class="promise-sections">
+    
+    <!-- Promise.all Section -->
+    <section class="promise-section">
+      <h3>1. Promise.all - Fetch All Essential</h3>
+      <p>Simultaneously fetch user and roles data. Fails if any request fails.</p>
+      
+      <div class="controls">
+        <button (click)="fetchAllEssential()" [disabled]="allStatus() === 'loading'" class="btn fetch-btn">
+          {{ allStatus() === 'loading' ? 'Fetching...' : 'Fetch All Essential' }}
+        </button>
+        <button (click)="clearAllResults()" class="btn clear-btn">Clear</button>
+      </div>
+      
+      <div class="status">
+        <strong>Status:</strong> 
+        <span [class]="'status-' + allStatus()">
+          {{ allStatus().toUpperCase() }}
+        </span>
+      </div>
+      
+      <div class="results">
+        <h4>Results:</h4>
+        <pre>{{ allResults() | json }}</pre>
+      </div>
+    </section>
+
+    <!-- Promise.allSettled Section -->
+    <section class="promise-section">
+      <h3>2. Promise.allSettled - Fetch Status</h3>
+      <p>Fetch from multiple services, some may fail. All results are captured.</p>
+      
+      <div class="controls">
+        <button (click)="fetchStatus()" [disabled]="allSettledStatus() === 'loading'" class="btn fetch-btn">
+          {{ allSettledStatus() === 'loading' ? 'Fetching...' : 'Fetch Status' }}
+        </button>
+        <button (click)="clearAllSettledResults()" class="btn clear-btn">Clear</button>
+      </div>
+      
+      <div class="status">
+        <strong>Status:</strong> 
+        <span [class]="'status-' + allSettledStatus()">
+          {{ allSettledStatus().toUpperCase() }}
+        </span>
+      </div>
+      
+      <div class="results">
+        <h4>Results Table:</h4>
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Status</th>
+              <th>Value / Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (result of allSettledResults(); track result.id) {
+              <tr [class]="'row-' + result.status">
+                <td>{{ result.id }}</td>
+                <td>
+                  <span [class]="'badge badge-' + result.status">
+                    {{ result.status }}
+                  </span>
+                </td>
+                <td>
+                  @if (result.status === 'fulfilled') {
+                    <pre class="value-pre">{{ result.value | json }}</pre>
+                  } @else {
+                    <span class="error-reason">{{ result.reason }}</span>
+                  }
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="3" class="empty-message">No results yet. Click "Fetch Status" to see.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Promise.race Section -->
+    <section class="promise-section">
+      <h3>3. Promise.race - Timeout Race</h3>
+      <p>Race a 5-second API call against a 2-second timeout.</p>
+      
+      <div class="controls">
+        <button (click)="timeoutRace()" [disabled]="raceStatus() === 'racing'" class="btn race-btn">
+          {{ raceStatus() === 'racing' ? 'Racing...' : 'Start Timeout Race' }}
+        </button>
+        <button (click)="clearRaceResults()" class="btn clear-btn">Clear</button>
+      </div>
+      
+      <div class="status">
+        <strong>Status:</strong> 
+        <span [class]="'status-' + raceStatus()">
+          {{ raceStatus().toUpperCase() }}
+        </span>
+      </div>
+      
+      <div class="results">
+        <h4>Race Result:</h4>
+        <div class="race-result">
+          {{ raceResult() || 'No result yet' }}
+        </div>
+      </div>
+    </section>
+
+    <!-- Retry Mechanism Section -->
+    <section class="promise-section">
+      <h3>4. Retry Pattern</h3>
+      <p>Simulate an API that fails twice, then succeeds on the third attempt.</p>
+      
+      <div class="controls">
+        <button (click)="retryMock()" [disabled]="retryStatus() === 'retrying'" class="btn retry-btn">
+          {{ retryStatus() === 'retrying' ? 'Retrying...' : 'Start Retry Demo' }}
+        </button>
+        <button (click)="clearRetryLogs()" class="btn clear-btn">Clear</button>
+      </div>
+      
+      <div class="status">
+        <strong>Status:</strong> 
+        <span [class]="'status-' + retryStatus()">
+          {{ retryStatus().toUpperCase() }}
+        </span>
+        <span *ngIf="retryAttempts() > 0">(Attempt {{ retryAttempts() }}/3)</span>
+      </div>
+      
+      <div class="results">
+        <h4>Retry Logs:</h4>
+        <div class="log-entries">
+          @for (log of retryLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          } @empty {
+            <div class="empty-message">No logs yet. Start the retry demo.</div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Loop Section -->
+    <section class="promise-section">
+      <h3>5. Event Loop Visualization</h3>
+      <p>Demonstrate microtasks (Promise) vs macrotasks (setTimeout) execution order.</p>
+      
+      <div class="controls">
+        <button (click)="demonstrateEventLoop()" class="btn eventloop-btn">
+          Demonstrate Event Loop
+        </button>
+        <button (click)="clearEventLoopLogs()" class="btn clear-btn">Clear</button>
+      </div>
+      
+      <div class="results">
+        <h4>Execution Order:</h4>
+        <div class="log-entries">
+          @for (log of eventLoopLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          } @empty {
+            <div class="empty-message">Click the button to see the event loop in action.</div>
+          }
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>Advanced Promise patterns are essential for robust asynchronous JavaScript applications.</p>
+  </footer>
+</div>

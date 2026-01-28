@@ -1,0 +1,280 @@
+.advanced-promise-lab {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.advanced-promise-lab header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.advanced-promise-lab h1 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.advanced-promise-lab p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+.explanation {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 4px solid #9b59b6;
+}
+
+.explanation h2 {
+  color: #2c3e50;
+  margin-top: 0;
+}
+
+.explanation ul {
+  padding-left: 1.5rem;
+}
+
+.explanation li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.promise-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.promise-section {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-top: 4px solid #3498db;
+}
+
+.promise-section:nth-child(2) {
+  border-top-color: #e74c3c;
+}
+
+.promise-section:nth-child(3) {
+  border-top-color: #27ae60;
+}
+
+.promise-section:nth-child(4) {
+  border-top-color: #f39c12;
+}
+
+.promise-section:nth-child(5) {
+  border-top-color: #9b59b6;
+}
+
+.promise-section h3 {
+  color: #2c3e50;
+  margin-top: 0;
+  border-bottom: 2px solid;
+  padding-bottom: 0.5rem;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.fetch-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.fetch-btn:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.race-btn {
+  background-color: #27ae60;
+  color: white;
+}
+
+.race-btn:hover:not(:disabled) {
+  background-color: #219653;
+}
+
+.retry-btn {
+  background-color: #f39c12;
+  color: white;
+}
+
+.retry-btn:hover:not(:disabled) {
+  background-color: #d68910;
+}
+
+.eventloop-btn {
+  background-color: #9b59b6;
+  color: white;
+}
+
+.eventloop-btn:hover {
+  background-color: #8e44ad;
+}
+
+.clear-btn {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.clear-btn:hover {
+  background-color: #7f8c8d;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.status {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.status-idle {
+  color: #95a5a6;
+}
+
+.status-loading, .status-racing, .status-retrying {
+  color: #f39c12;
+  font-weight: bold;
+}
+
+.status-success, .status-complete {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.status-error, .status-timeout, .status-failed {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.results {
+  margin-top: 1rem;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.results-table th {
+  background-color: #2c3e50;
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.results-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.row-fulfilled {
+  background-color: #f0f9f4;
+}
+
+.row-rejected {
+  background-color: #fdf2f2;
+}
+
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.badge-fulfilled {
+  background-color: #27ae60;
+  color: white;
+}
+
+.badge-rejected {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.value-pre {
+  background-color: #ecf0f1;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin: 0;
+  font-size: 0.8rem;
+  overflow-x: auto;
+}
+
+.error-reason {
+  color: #c0392b;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.empty-message {
+  color: #95a5a6;
+  font-style: italic;
+  text-align: center;
+  padding: 1rem;
+}
+
+.race-result {
+  background-color: #ecf0f1;
+  padding: 1rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.log-entries {
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.log-entry {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #34495e;
+}
+
+.log-entry:last-child {
+  border-bottom: none;
+}
+
+footer {
+  margin-top: 2rem;
+  text-align: center;
+  color: #95a5a6;
+  font-style: italic;
+  padding-top: 1rem;
+  border-top: 1px solid #ecf0f1;
+}

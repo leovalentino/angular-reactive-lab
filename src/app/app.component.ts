@@ -5,6 +5,7 @@ import { LifecycleVisualizerComponent } from './components/lifecycle-visualizer/
 import { ChangeDetectionLabComponent } from './components/change-detection-lab/change-detection-lab.component';
 import { ObservableLabComponent } from './components/observable-lab/observable-lab.component';
 import { ComparisonLabComponent } from './components/comparison-lab/comparison-lab.component';
+import { AdvancedPromiseLabComponent } from './components/advanced-promise-lab/advanced-promise-lab.component';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ import { ComparisonLabComponent } from './components/comparison-lab/comparison-l
     LifecycleVisualizerComponent, 
     ChangeDetectionLabComponent,
     ObservableLabComponent,
-    ComparisonLabComponent
+    ComparisonLabComponent,
+    AdvancedPromiseLabComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
