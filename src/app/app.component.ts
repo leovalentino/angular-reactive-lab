@@ -6,6 +6,7 @@ import { ChangeDetectionLabComponent } from './components/change-detection-lab/c
 import { ObservableLabComponent } from './components/observable-lab/observable-lab.component';
 import { ComparisonLabComponent } from './components/comparison-lab/comparison-lab.component';
 import { AdvancedPromiseLabComponent } from './components/advanced-promise-lab/advanced-promise-lab.component';
+import { MappingOperatorsLabComponent } from './components/mapping-operators-lab/mapping-operators-lab.component';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ import { AdvancedPromiseLabComponent } from './components/advanced-promise-lab/a
     ChangeDetectionLabComponent,
     ObservableLabComponent,
     ComparisonLabComponent,
-    AdvancedPromiseLabComponent
+    AdvancedPromiseLabComponent,
+    MappingOperatorsLabComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

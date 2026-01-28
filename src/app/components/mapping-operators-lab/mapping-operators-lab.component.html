@@ -1,0 +1,153 @@
+<div class="mapping-operators-lab">
+  <header>
+    <h1>Mapping Operators Lab</h1>
+    <p>Advanced RxJS Higher-Order Flattening and Join Operators</p>
+  </header>
+
+  <div class="explanation">
+    <h2>Key Concepts:</h2>
+    <ul>
+      <li><strong>Higher-Order Observables:</strong> Observables that emit other observables.</li>
+      <li><strong>Flattening Operators:</strong> Convert Higher-Order Observables to regular observables.</li>
+      <li><strong>Join Operators:</strong> Combine multiple streams in specific ways.</li>
+      <li><strong>switchMap vs map+switchAll:</strong> Different patterns for similar results.</li>
+    </ul>
+  </div>
+
+  <div class="sections-container">
+    
+    <!-- Higher-Order All Operators -->
+    <section class="operators-section">
+      <h3>Higher-Order All Operators</h3>
+      <p>Demonstrates switchAll, concatAll, mergeAll, exhaustAll</p>
+      
+      <div class="controls">
+        <button (click)="demonstrateSwitchAll()" class="btn switch-btn">switchAll</button>
+        <button (click)="demonstrateConcatAll()" class="btn concat-btn">concatAll</button>
+        <button (click)="demonstrateMergeAll()" class="btn merge-btn">mergeAll</button>
+        <button (click)="demonstrateExhaustAll()" class="btn exhaust-btn">exhaustAll</button>
+        <button (click)="clearAllOperators()" class="btn clear-btn">Clear</button>
+      </div>
+      
+      <div class="results">
+        <h4>Values:</h4>
+        <div class="value-list">
+          @for (value of allOperatorsValues(); track $index) {
+            <span class="value-badge">{{ value }}</span>
+          }
+        </div>
+      </div>
+      
+      <div class="logs">
+        <h4>Logs:</h4>
+        <div class="log-entries">
+          @for (log of allOperatorsLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Join & Start Operators -->
+    <section class="operators-section">
+      <h3>Join & Start Operators</h3>
+      <p>Demonstrates withLatestFrom and startWith</p>
+      
+      <div class="controls">
+        <button (click)="demonstrateWithLatestFrom()" class="btn join-btn">withLatestFrom</button>
+        <button (click)="demonstrateStartWith()" class="btn start-btn">startWith</button>
+        <button (click)="clearJoinStart()" class="btn clear-btn">Clear</button>
+      </div>
+      
+      <div class="status">
+        <p><strong>Secondary Stream Value:</strong> {{ secondarySignal() }}</p>
+      </div>
+      
+      <div class="results">
+        <h4>Values:</h4>
+        <div class="value-list">
+          @for (value of joinStartValues(); track $index) {
+            <span class="value-badge">{{ value }}</span>
+          }
+        </div>
+      </div>
+      
+      <div class="logs">
+        <h4>Logs:</h4>
+        <div class="log-entries">
+          @for (log of joinStartLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison: switchMap vs map + switchAll -->
+    <section class="operators-section">
+      <h3>Comparison: switchMap vs map + switchAll</h3>
+      <p>Different patterns for similar flattening behavior</p>
+      
+      <div class="controls">
+        <button (click)="demonstrateSwitchMapVsSwitchAll()" class="btn compare-btn">
+          Demonstrate Comparison
+        </button>
+        <button (click)="clearComparison()" class="btn clear-btn">Clear</button>
+      </div>
+      
+      <div class="results">
+        <h4>Values:</h4>
+        <div class="value-list">
+          @for (value of comparisonValues(); track $index) {
+            <span class="value-badge">{{ value }}</span>
+          }
+        </div>
+      </div>
+      
+      <div class="logs">
+        <h4>Logs:</h4>
+        <div class="log-entries">
+          @for (log of comparisonLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- combineLatestAll -->
+    <section class="operators-section">
+      <h3>combineLatestAll (formerly combineAll)</h3>
+      <p>Waits for outer stream to complete, then combines all inner observables</p>
+      
+      <div class="controls">
+        <button (click)="demonstrateCombineLatestAll()" class="btn combine-btn">
+          Demonstrate combineLatestAll
+        </button>
+        <button (click)="clearCombineAll()" class="btn clear-btn">Clear</button>
+      </div>
+      
+      <div class="results">
+        <h4>Values:</h4>
+        <div class="value-list">
+          @for (value of combineAllValues(); track $index) {
+            <span class="value-badge">{{ value }}</span>
+          }
+        </div>
+      </div>
+      
+      <div class="logs">
+        <h4>Logs:</h4>
+        <div class="log-entries">
+          @for (log of combineAllLogs(); track $index) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>Higher-order operators provide fine-grained control over how inner observables are processed.</p>
+    <p><strong>Key Insight:</strong> withLatestFrom is superior to combineLatest when you only want to trigger based on one source but need data from others.</p>
+  </footer>
+</div>
