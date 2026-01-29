@@ -7,6 +7,7 @@ import { ObservableLabComponent } from './components/observable-lab/observable-l
 import { ComparisonLabComponent } from './components/comparison-lab/comparison-lab.component';
 import { AdvancedPromiseLabComponent } from './components/advanced-promise-lab/advanced-promise-lab.component';
 import { MappingOperatorsLabComponent } from './components/mapping-operators-lab/mapping-operators-lab.component';
+import { SubjectLabComponent } from './components/subject-lab/subject-lab.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ import { MappingOperatorsLabComponent } from './components/mapping-operators-lab
     ObservableLabComponent,
     ComparisonLabComponent,
     AdvancedPromiseLabComponent,
-    MappingOperatorsLabComponent
+    MappingOperatorsLabComponent,
+    SubjectLabComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

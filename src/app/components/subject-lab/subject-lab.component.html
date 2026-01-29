@@ -1,0 +1,168 @@
+<div class="subject-lab">
+  <h1>RxJS Subjects Lab</h1>
+  <p class="description">
+    This lab demonstrates the four types of Subjects in RxJS. Each Subject has different behavior regarding when and what values are emitted to subscribers.
+  </p>
+
+  <div class="subjects-grid">
+    <!-- Subject Card -->
+    <div class="subject-card">
+      <h2>Subject</h2>
+      <p class="card-description">
+        Late subscribers miss everything emitted before they joined.
+      </p>
+      
+      <div class="button-group">
+        <button (click)="emitSubject()" [disabled]="isSubjectCompleted()">Emit Random Number</button>
+        <button (click)="subscribeToSubject()" [disabled]="isSubjectCompleted()">Subscribe Now</button>
+        <button (click)="completeSubject()" [disabled]="isSubjectCompleted()">Complete Subject</button>
+        <button (click)="resetSubject()">Reset</button>
+      </div>
+
+      <div class="values-section">
+        <h3>Live Emissions</h3>
+        <div class="values-display">
+          <span *ngFor="let value of subjectEmissions()" class="value-badge">{{ value }}</span>
+          <span *ngIf="subjectEmissions().length === 0" class="empty-message">No emissions yet</span>
+        </div>
+
+        <h3>Late Subscriber Values</h3>
+        <div class="values-display">
+          <span *ngFor="let value of subjectLateValues()" class="value-badge">{{ value }}</span>
+          <span *ngIf="subjectLateValues().length === 0" class="empty-message">No late subscriptions yet</span>
+        </div>
+      </div>
+
+      <div class="logs-section">
+        <h3>Logs</h3>
+        <div class="logs">
+          <div *ngFor="let log of subjectLogs()" class="log-entry" [class]="log.type">
+            <span class="timestamp">{{ log.timestamp }}</span>
+            <span class="message">{{ log.message }}</span>
+          </div>
+          <div *ngIf="subjectLogs().length === 0" class="empty-message">No logs yet</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BehaviorSubject Card -->
+    <div class="subject-card">
+      <h2>BehaviorSubject</h2>
+      <p class="card-description">
+        Always gives the last value (or initial value 0) immediately upon subscription.
+      </p>
+      
+      <div class="button-group">
+        <button (click)="emitBehaviorSubject()" [disabled]="isBehaviorCompleted()">Emit Random Number</button>
+        <button (click)="subscribeToBehaviorSubject()" [disabled]="isBehaviorCompleted()">Subscribe Now</button>
+        <button (click)="completeBehaviorSubject()" [disabled]="isBehaviorCompleted()">Complete Subject</button>
+        <button (click)="resetBehaviorSubject()">Reset</button>
+      </div>
+
+      <div class="values-section">
+        <h3>Live Emissions</h3>
+        <div class="values-display">
+          <span *ngFor="let value of behaviorEmissions()" class="value-badge">{{ value }}</span>
+          <span *ngIf="behaviorEmissions().length === 0" class="empty-message">No emissions yet</span>
+        </div>
+
+        <h3>Late Subscriber Values</h3>
+        <div class="values-display">
+          <span *ngFor="let value of behaviorLateValues()" class="value-badge">{{ value }}</span>
+          <span *ngIf="behaviorLateValues().length === 0" class="empty-message">No late subscriptions yet</span>
+        </div>
+      </div>
+
+      <div class="logs-section">
+        <h3>Logs</h3>
+        <div class="logs">
+          <div *ngFor="let log of behaviorLogs()" class="log-entry" [class]="log.type">
+            <span class="timestamp">{{ log.timestamp }}</span>
+            <span class="message">{{ log.message }}</span>
+          </div>
+          <div *ngIf="behaviorLogs().length === 0" class="empty-message">No logs yet</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ReplaySubject Card -->
+    <div class="subject-card">
+      <h2>ReplaySubject(2)</h2>
+      <p class="card-description">
+        Buffers the last 2 values and delivers them to any new subscriber.
+      </p>
+      
+      <div class="button-group">
+        <button (click)="emitReplaySubject()" [disabled]="isReplayCompleted()">Emit Random Number</button>
+        <button (click)="subscribeToReplaySubject()" [disabled]="isReplayCompleted()">Subscribe Now</button>
+        <button (click)="completeReplaySubject()" [disabled]="isReplayCompleted()">Complete Subject</button>
+        <button (click)="resetReplaySubject()">Reset</button>
+      </div>
+
+      <div class="values-section">
+        <h3>Live Emissions</h3>
+        <div class="values-display">
+          <span *ngFor="let value of replayEmissions()" class="value-badge">{{ value }}</span>
+          <span *ngIf="replayEmissions().length === 0" class="empty-message">No emissions yet</span>
+        </div>
+
+        <h3>Late Subscriber Values</h3>
+        <div class="values-display">
+          <span *ngFor="let value of replayLateValues()" class="value-badge">{{ value }}</span>
+          <span *ngIf="replayLateValues().length === 0" class="empty-message">No late subscriptions yet</span>
+        </div>
+      </div>
+
+      <div class="logs-section">
+        <h3>Logs</h3>
+        <div class="logs">
+          <div *ngFor="let log of replayLogs()" class="log-entry" [class]="log.type">
+            <span class="timestamp">{{ log.timestamp }}</span>
+            <span class="message">{{ log.message }}</span>
+          </div>
+          <div *ngIf="replayLogs().length === 0" class="empty-message">No logs yet</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AsyncSubject Card -->
+    <div class="subject-card">
+      <h2>AsyncSubject</h2>
+      <p class="card-description">
+        Emits NOTHING until it's completed, and then only emits the very last value.
+      </p>
+      
+      <div class="button-group">
+        <button (click)="emitAsyncSubject()" [disabled]="isAsyncCompleted()">Emit Random Number</button>
+        <button (click)="subscribeToAsyncSubject()" [disabled]="isAsyncCompleted()">Subscribe Now</button>
+        <button (click)="completeAsyncSubject()" [disabled]="isAsyncCompleted()">Complete Subject</button>
+        <button (click)="resetAsyncSubject()">Reset</button>
+      </div>
+
+      <div class="values-section">
+        <h3>Live Emissions</h3>
+        <div class="values-display">
+          <span *ngFor="let value of asyncEmissions()" class="value-badge">{{ value }}</span>
+          <span *ngIf="asyncEmissions().length === 0" class="empty-message">No emissions yet</span>
+        </div>
+
+        <h3>Late Subscriber Values</h3>
+        <div class="values-display">
+          <span *ngFor="let value of asyncLateValues()" class="value-badge">{{ value }}</span>
+          <span *ngIf="asyncLateValues().length === 0" class="empty-message">No late subscriptions yet</span>
+        </div>
+      </div>
+
+      <div class="logs-section">
+        <h3>Logs</h3>
+        <div class="logs">
+          <div *ngFor="let log of asyncLogs()" class="log-entry" [class]="log.type">
+            <span class="timestamp">{{ log.timestamp }}</span>
+            <span class="message">{{ log.message }}</span>
+          </div>
+          <div *ngIf="asyncLogs().length === 0" class="empty-message">No logs yet</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
