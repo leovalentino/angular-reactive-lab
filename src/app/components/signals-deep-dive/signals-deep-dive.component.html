@@ -1,0 +1,74 @@
+<div class="signals-deep-dive">
+  <h2>Signals Deep Dive: Advanced Reactivity in Angular 19</h2>
+  
+  <!-- 1. Dependency Graph Visualization -->
+  <section class="section">
+    <h3>1. Dependency Graph Visualization</h3>
+    <p>Signal A: {{ signalA() }}</p>
+    <p>Computed B (A * 2): {{ computedB() }}</p>
+    <p>Computed C (A + B): {{ computedC() }}</p>
+    <button (click)="updateSignalA()">Increment Signal A</button>
+    <p><em>Note: B and C only recalculate when their values are read (lazy evaluation). Check the log below.</em></p>
+  </section>
+
+  <!-- 2. Glitch-Free Test -->
+  <section class="section">
+    <h3>2. Glitch-Free Test (Diamond Problem)</h3>
+    <p>Computed C depends on both Signal A and Computed B, where B also depends on A.</p>
+    <p>When Signal A changes, C updates only once, even though there are two paths from A to C.</p>
+    <p>This prevents "glitches" where C could temporarily have inconsistent values.</p>
+  </section>
+
+  <!-- 3. Advanced Signal Patterns -->
+  <section class="section">
+    <h3>3. Advanced Signal Patterns</h3>
+    
+    <h4>Untracked</h4>
+    <p>Untracked value: {{ untrackedExample() }}</p>
+    <p><em>This computed reads Signal A but uses untracked() to avoid creating a dependency.</em></p>
+    
+    <h4>Effect Cleanups</h4>
+    <p>Check the browser console for interval ticks. Each time Signal A changes, the previous interval is cleaned up.</p>
+    
+    <h4>Equality Functions</h4>
+    <p>User Object: {{ userObject() | json }}</p>
+    <button (click)="updateUserSameId()">Update User (Same ID)</button>
+    <button (click)="updateUserDifferentId()">Update User (Different ID)</button>
+    <p><em>The equality function compares only the ID field. When ID is the same, no update notification occurs.</em></p>
+  </section>
+
+  <!-- 4. Performance Profiling -->
+  <section class="section">
+    <h3>4. Performance Profiling: 1000 Computed Signals</h3>
+    <p>Signal A value: {{ signalA() }}</p>
+    <p>Sample of first 5 computed signals: {{ getSampleComputedValues() }}</p>
+    <p><em>Angular's push/pull hybrid model ensures that even with 1000 computed signals, 
+       updates are efficient. When Signal A changes, notifications are pushed to all dependent 
+       computed signals, but actual recalculation only happens when their values are pulled (read).</em></p>
+  </section>
+
+  <!-- 5. Technical Documentation -->
+  <section class="section">
+    <h3>5. Technical Documentation: Push/Pull Hybrid Model</h3>
+    <p><strong>Push Phase:</strong> When a signal changes, it notifies all its dependents (computed signals, effects) 
+       that they may need to update. This is a fast, synchronous operation.</p>
+    <p><strong>Pull Phase:</strong> The actual value of a computed signal is only recalculated when it's read (pulled). 
+       This lazy evaluation prevents unnecessary calculations.</p>
+    <p>This hybrid approach combines the best of both worlds: the responsiveness of push-based systems 
+       and the efficiency of pull-based systems.</p>
+  </section>
+
+  <!-- Reactivity Log -->
+  <section class="section log-section">
+    <h3>Reactivity Log</h3>
+    <button (click)="clearLogs()">Clear Logs</button>
+    <div class="log-entries">
+      <div *ngFor="let entry of logEntries" class="log-entry">
+        {{ entry }}
+      </div>
+      <div *ngIf="logEntries.length === 0" class="no-logs">
+        No log entries yet. Click "Increment Signal A" to see reactivity in action.
+      </div>
+    </div>
+  </section>
+</div>

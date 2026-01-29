@@ -9,6 +9,7 @@ import { AdvancedPromiseLabComponent } from './components/advanced-promise-lab/a
 import { MappingOperatorsLabComponent } from './components/mapping-operators-lab/mapping-operators-lab.component';
 import { SubjectLabComponent } from './components/subject-lab/subject-lab.component';
 import {PerformanceLabComponent} from './components/performance-lab/performance-lab.component';
+import { SignalsDeepDiveComponent } from './components/signals-deep-dive/signals-deep-dive.component';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,8 @@ import {PerformanceLabComponent} from './components/performance-lab/performance-
     AdvancedPromiseLabComponent,
     MappingOperatorsLabComponent,
     SubjectLabComponent,
-    PerformanceLabComponent
+    PerformanceLabComponent,
+    SignalsDeepDiveComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
