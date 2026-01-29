@@ -2,22 +2,56 @@
   <header>
     <h1>{{ title }}</h1>
     <p>Clean Architecture with Angular 18+ Signals</p>
-    <nav>
-      <a routerLink="/performance">Performance Lab</a>
+    <nav class="main-nav">
+      <a routerLink="/performance">Performance Lab (Router)</a>
     </nav>
   </header>
 
+  <!-- Tab Navigation -->
+  <nav class="lab-tabs">
+    <div class="tabs-container">
+      <button 
+        *ngFor="let lab of labs" 
+        class="tab-button" 
+        [class.active]="activeTab() === lab.id"
+        (click)="setActiveTab(lab.id)">
+        {{ lab.name }}
+      </button>
+    </div>
+  </nav>
+
   <main>
-    <app-signals-deep-dive></app-signals-deep-dive>
-    <app-performance-lab></app-performance-lab>
-    <app-subject-lab></app-subject-lab>
-    <app-mapping-operators-lab></app-mapping-operators-lab>
-    <app-advanced-promise-lab></app-advanced-promise-lab>
-    <app-comparison-lab></app-comparison-lab>
-    <app-change-detection-lab></app-change-detection-lab>
-    <app-observable-lab></app-observable-lab>
-    <app-product-list></app-product-list>
-    <app-lifecycle-visualizer [triggerSignal]="triggerSignal"></app-lifecycle-visualizer>
+    <!-- Conditionally display the active lab -->
+    <div *ngIf="activeTab() === 'signals'">
+      <app-signals-deep-dive></app-signals-deep-dive>
+    </div>
+    <div *ngIf="activeTab() === 'performance'">
+      <app-performance-lab></app-performance-lab>
+    </div>
+    <div *ngIf="activeTab() === 'subject'">
+      <app-subject-lab></app-subject-lab>
+    </div>
+    <div *ngIf="activeTab() === 'mapping'">
+      <app-mapping-operators-lab></app-mapping-operators-lab>
+    </div>
+    <div *ngIf="activeTab() === 'promise'">
+      <app-advanced-promise-lab></app-advanced-promise-lab>
+    </div>
+    <div *ngIf="activeTab() === 'comparison'">
+      <app-comparison-lab></app-comparison-lab>
+    </div>
+    <div *ngIf="activeTab() === 'change-detection'">
+      <app-change-detection-lab></app-change-detection-lab>
+    </div>
+    <div *ngIf="activeTab() === 'observable'">
+      <app-observable-lab></app-observable-lab>
+    </div>
+    <div *ngIf="activeTab() === 'product'">
+      <app-product-list></app-product-list>
+    </div>
+    <div *ngIf="activeTab() === 'lifecycle'">
+      <app-lifecycle-visualizer [triggerSignal]="triggerSignal"></app-lifecycle-visualizer>
+    </div>
   </main>
 
   <footer>
