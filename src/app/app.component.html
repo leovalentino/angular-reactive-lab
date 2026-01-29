@@ -2,9 +2,13 @@
   <header>
     <h1>{{ title }}</h1>
     <p>Clean Architecture with Angular 18+ Signals</p>
+    <nav>
+      <a routerLink="/performance">Performance Lab</a>
+    </nav>
   </header>
 
   <main>
+    <app-performance-lab></app-performance-lab>
     <app-subject-lab></app-subject-lab>
     <app-mapping-operators-lab></app-mapping-operators-lab>
     <app-advanced-promise-lab></app-advanced-promise-lab>

@@ -1,0 +1,105 @@
+<div class="performance-lab">
+  <header class="hero">
+    <h1>Angular Performance Lab</h1>
+    <p>Demonstrating Lazy Loading & Deferrable Views</p>
+    <img 
+      ngSrc="/assets/angular-logo.png" 
+      alt="Angular Logo" 
+      width="1200" 
+      height="400" 
+      priority
+      class="hero-image">
+  </header>
+
+  <div class="content">
+    <section class="intro">
+      <h2>Optimization Techniques</h2>
+      <p>This page demonstrates how to improve performance using Angular's latest features:</p>
+      <ul>
+        <li><strong>Lazy Loading</strong>: Components are loaded only when needed</li>
+        <li><strong>Deferrable Views</strong>: Content loads based on triggers (viewport, interaction)</li>
+        <li><strong>Image Optimization</strong>: Using NgOptimizedImage with priority and lazy loading</li>
+      </ul>
+      <p>Current time: {{ currentTime }}</p>
+    </section>
+
+    <section class="scroll-area">
+      <h2>Scroll Down to Trigger Chart Load</h2>
+      <p>This area has a minimum height of 150vh to push content below the viewport.</p>
+      <div class="scroll-spacer"></div>
+      
+      @defer (on viewport) {
+        <app-heavy-chart />
+      } @placeholder (minimum 500ms) {
+        <div class="placeholder">
+          <div class="placeholder-box"></div>
+          <p>Scroll down to load the heavy chart component</p>
+        </div>
+      } @loading (after 100ms; minimum 1s) {
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p>Loading chart component...</p>
+        </div>
+      }
+    </section>
+
+    <section class="interaction-area">
+      <h2>Click to Load Data Table</h2>
+      <p>The table component (500 rows) will only load when you click the button below.</p>
+      
+      <button class="load-button" #loadTableTrigger>Load Data Table</button>
+      
+      @defer (on interaction(loadTableTrigger)) {
+        <app-heavy-table />
+      } @placeholder {
+        <div class="placeholder">
+          <div class="placeholder-box"></div>
+          <p>Click the button above to load the heavy table component</p>
+        </div>
+      } @loading (after 100ms; minimum 1s) {
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p>Loading table component...</p>
+        </div>
+      }
+    </section>
+
+    <section class="lazy-images">
+      <h2>Lazy Loaded Images</h2>
+      <p>These images use the native 'loading="lazy"' attribute.</p>
+      <div class="image-grid">
+        <img 
+          ngSrc="/assets/placeholder-1.jpg" 
+          alt="Placeholder 1" 
+          width="400" 
+          height="300" 
+          loading="lazy"
+          class="lazy-img">
+        <img 
+          ngSrc="/assets/placeholder-2.jpg" 
+          alt="Placeholder 2" 
+          width="400" 
+          height="300" 
+          loading="lazy"
+          class="lazy-img">
+        <img 
+          ngSrc="/assets/placeholder-3.jpg" 
+          alt="Placeholder 3" 
+          width="400" 
+          height="300" 
+          loading="lazy"
+          class="lazy-img">
+      </div>
+      <p><em>Note: These are placeholder images. You may need to add actual images to the assets folder.</em></p>
+    </section>
+
+    <section class="routing-demo">
+      <h2>Lazy Loaded Routes</h2>
+      <p>This section demonstrates nested lazy loading via Angular Router.</p>
+      <nav>
+        <a [routerLink]="['details']">Load Details Route</a>
+      </nav>
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+</div>

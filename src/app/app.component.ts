@@ -8,20 +8,22 @@ import { ComparisonLabComponent } from './components/comparison-lab/comparison-l
 import { AdvancedPromiseLabComponent } from './components/advanced-promise-lab/advanced-promise-lab.component';
 import { MappingOperatorsLabComponent } from './components/mapping-operators-lab/mapping-operators-lab.component';
 import { SubjectLabComponent } from './components/subject-lab/subject-lab.component';
+import {PerformanceLabComponent} from './components/performance-lab/performance-lab.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet, 
-    ProductListComponent, 
-    LifecycleVisualizerComponent, 
+    RouterOutlet,
+    ProductListComponent,
+    LifecycleVisualizerComponent,
     ChangeDetectionLabComponent,
     ObservableLabComponent,
     ComparisonLabComponent,
     AdvancedPromiseLabComponent,
     MappingOperatorsLabComponent,
-    SubjectLabComponent
+    SubjectLabComponent,
+    PerformanceLabComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
