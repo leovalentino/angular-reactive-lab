@@ -1,30 +1,89 @@
 .app-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   padding: 20px;
   background-color: #f8f9fa;
   border-radius: 8px;
 }
 
 header h1 {
-  color: #333;
+  color: #2c3e50;
   margin-bottom: 10px;
 }
 
 header p {
-  color: #666;
-  font-size: 18px;
+  color: #7f8c8d;
+  font-size: 1.1em;
+}
+
+.main-nav {
+  margin-top: 20px;
+}
+
+.main-nav a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  border: 2px solid #3498db;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.main-nav a:hover {
+  background-color: #3498db;
+  color: white;
+}
+
+/* Tab navigation */
+.lab-tabs {
+  margin: 30px 0;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.tabs-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tab-button {
+  padding: 12px 24px;
+  background-color: white;
+  border: 2px solid #bdc3c7;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #2c3e50;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.tab-button:hover {
+  background-color: #ecf0f1;
+  border-color: #3498db;
+  color: #3498db;
+}
+
+.tab-button.active {
+  background-color: #3498db;
+  border-color: #2980b9;
+  color: white;
 }
 
 main {
   margin-bottom: 40px;
+  min-height: 500px;
 }
 
 footer {
@@ -32,4 +91,16 @@ footer {
   padding: 20px;
   color: #666;
   border-top: 1px solid #eee;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tabs-container {
+    flex-direction: column;
+  }
+  
+  .tab-button {
+    width: 100%;
+    text-align: center;
+  }
 }
